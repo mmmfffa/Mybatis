@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!--命名空间namespace绑定一个指定的Dao/Mapper接口-->
+<mapper namespace="com.mf.dao.UserMapper">
+    <!--select查询语句-->
+    <select id="getUserList" resultType="hello">
+        select * from mybatis.tb_user
+    </select>
+
+    <select id="getUserById" resultType="hello">
+        select * from mybatis.tb_user where id=#{id}
+    </select>
+
+    <insert id="addUser" parameterType="hello">
+        insert into mybatis.tb_user(id,username,pwd) values (#{id},#{username},#{pwd})
+    </insert>
+
+    <update id="updateUser" parameterType="hello">
+        update mybatis.tb_user set username=#{username},pwd=#{pwd} where id=#{id}
+    </update>
+
+    <delete id="deleteUser" parameterType="int">
+        delete from mybatis.tb_user where  id=#{id}
+    </delete>
+
+</mapper>

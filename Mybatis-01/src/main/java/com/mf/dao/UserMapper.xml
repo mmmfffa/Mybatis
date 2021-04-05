@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!--命名空间namespace绑定一个指定的Dao/Mapper接口-->
+<mapper namespace="com.mf.dao.UserMapper">
+       <!--select查询语句-->
+       <select id="getUserList" resultType="com.mf.pojo.User">
+           select * from mybatis.tb_user
+       </select>
+
+       <select id="getUserById" resultType="com.mf.pojo.User">
+           select * from mybatis.tb_user where id=#{id}
+       </select>
+
+       <select id="getUserByNP" resultType="com.mf.pojo.User">
+           select * from mybatis.tb_user where username=#{username} and pwd=#{pwd};
+       </select>
+
+       <select id="getUserByNP_map" parameterType="map" resultType="com.mf.pojo.User">
+           select * from mybatis.tb_user where username=#{username} and pwd=#{pwd};
+       </select>
+
+       <insert id="addUser" parameterType="com.mf.pojo.User">
+           insert into mybatis.tb_user(id,username,pwd) values (#{id},#{username},#{pwd})
+       </insert>
+
+        <update id="updateUser" parameterType="com.mf.pojo.User">
+            update mybatis.tb_user set username=#{username},pwd=#{pwd} where id=#{id}
+        </update>
+
+        <delete id="deleteUser" parameterType="int">
+            delete from mybatis.tb_user where  id=#{id}
+        </delete>
+
+        <!--比较安全的是sql注入：
+           select * from mybatis.tb_user where id=?
+           select * from mybatis.tb_user where id=1 or 1=1;//查询全部
+           select  * from mybatis.tb_user where username like "%"#{value}"%"  直接锁死防止输入奇怪的东西
+        -->
+        <select id="selectLike" resultType="com.mf.pojo.User">
+            select  * from mybatis.tb_user where username like #{value}
+        </select>
+
+
+</mapper>
